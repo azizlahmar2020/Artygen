@@ -1,0 +1,68 @@
+<!-- accounts/profile.html -->
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Profile</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa; /* Light grey background */
+        }
+        .container {
+            max-width: 600px;
+            margin-top: 100px;
+            padding: 30px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        h2 {
+            margin-bottom: 30px;
+            color: #007bff; /* Bootstrap primary color */
+            text-align: center;
+        }
+        .profile-photo {
+            width: 150px; /* Fixed width */
+            height: 150px; /* Fixed height */
+            border-radius: 50%; /* Circle shape */
+            object-fit: cover; /* Ensure the image covers the area */
+            border: 3px solid #007bff; /* Optional: border around the photo */
+        }
+        .text-center {
+            margin-bottom: 20px;
+        }
+        .welcome-message {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Your Profile</h2>
+        <div class="text-center">
+            {% if profile_photo %}
+                <img src="{{ profile_photo }}" alt="Profile Photo" class="profile-photo">  <!-- Use the profile photo URL -->
+            {% else %}
+                <p>No profile photo available.</p>
+            {% endif %}
+        </div>
+        <p class="welcome-message">Welcome to Your Profile, <strong>{{ username }}</strong>!</p>
+        <p>This is your profile page. You can manage your account settings here.</p>
+        <div class="text-center">
+            <a href="{% url 'logout' %}" class="btn btn-danger">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</body>
+</html>
