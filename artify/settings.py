@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts',  
+    'blog.apps.BlogConfig',
     'home',  # Ensure 'home' is included here
 
 
