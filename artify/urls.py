@@ -20,6 +20,12 @@ urlpatterns = [
     path('profile_photos/<path:path>/', serve, {'document_root': settings.PROFILE_PHOTOS_ROOT}, name='profile_photos'),  # Add this line
 
     #category URLs
+    path('category/', include('category.urls')),
+
+    
 
 ]
+
+if settings.DEBUG:
+        urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
