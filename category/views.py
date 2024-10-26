@@ -2,6 +2,12 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Category,Subcategory
 from .forms import CategoryForm
 from .serializers import SubcategorySerializer
+from django.conf import settings
+from django.shortcuts import render, get_object_or_404
+import requests
+
+
+
 # List all categories
 def category_list(request):
     categories = Category.objects.all()
@@ -40,5 +46,33 @@ def category_delete(request, pk):
 
 def subcategory_list(request, category_id):
     category = get_object_or_404(Category, id=category_id)
-    subcategories = category.subcategories.all()
-    return render(request, 'subcategories/subcategory_list.html', {'subcategories': subcategories, 'category': category})
+    subcategories = Subcategory.objects.filter(category=category)
+
+    if request.method == 'POST':
+        generated_subcategories = generate_subcategories(category.name)
+        for name in generated_subcategories:
+            Subcategory.objects.get_or_create(name=name, category=category)
+
+        subcategories = Subcategory.objects.filter(category=category)  # Refresh subcategories
+
+    return render(request, 'subcategory/subcategory_list.html', {
+        'category': category,
+        'subcategories': subcategories,
+    })
+
+def generate_subcategories(category_name):
+    url = "https://api.gemini.com/v1/generate_subcategories"  # Replace with the actual endpoint
+    headers = {
+        "Authorization": f"Bearer {settings.GEMINI_API_KEY}",
+        "Content-Type": "application/json"
+    }
+    payload = {
+        "prompt": f"Generate subcategories for the category '{category_name}'.",
+        "max_tokens": 50
+    }
+    
+    response = requests.post(url, headers=headers, json=payload)
+    response.raise_for_status()  # Raise an error for bad responses
+
+    subcategories = response.json().get('subcategories', [])
+    return [subcategory.strip() for subcategory in subcategories]
