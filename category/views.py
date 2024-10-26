@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Category
+from .models import Category,Subcategory
 from .forms import CategoryForm
-
+from .serializers import SubcategorySerializer
 # List all categories
 def category_list(request):
     categories = Category.objects.all()
@@ -37,3 +37,8 @@ def category_delete(request, pk):
         category.delete()
         return redirect('category-list')
     return render(request, 'category_delete.html', {'category': category})
+
+def subcategory_list(request, category_id):
+    category = get_object_or_404(Category, id=category_id)
+    subcategories = category.subcategories.all()
+    return render(request, 'subcategories/subcategory_list.html', {'subcategories': subcategories, 'category': category})

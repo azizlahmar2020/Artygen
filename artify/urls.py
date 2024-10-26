@@ -21,6 +21,8 @@ urlpatterns = [
 
     #category URLs
     path('category/', include('category.urls')),
+    path('subcategory/', include('category.urls')),
+
 
     
 
