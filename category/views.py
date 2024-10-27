@@ -14,10 +14,9 @@ def category_list(request):
     categories = Category.objects.all()
     return render(request, 'category_list.html', {'categories': categories})
 
-# Create a new category
 def category_create(request):
     if request.method == 'POST':
-        form = CategoryForm(request.POST)
+        form = CategoryForm(request.POST, request.FILES)  # Add request.FILES here
         if form.is_valid():
             form.save()
             return redirect('category-list')
@@ -25,11 +24,10 @@ def category_create(request):
         form = CategoryForm()
     return render(request, 'category_form.html', {'form': form})
 
-# Update a category
 def category_update(request, pk):
     category = get_object_or_404(Category, pk=pk)
     if request.method == 'POST':
-        form = CategoryForm(request.POST, instance=category)
+        form = CategoryForm(request.POST, request.FILES, instance=category)  # Add request.FILES here
         if form.is_valid():
             form.save()
             return redirect('category-list')
