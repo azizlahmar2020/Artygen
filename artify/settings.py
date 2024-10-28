@@ -33,12 +33,17 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'widget_tweaks',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts',  
     'home',  # Ensure 'home' is included here
+    'events',
+    'gallery',
+
+
 
 
 ]
@@ -58,7 +63,7 @@ ROOT_URLCONF = 'artify.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'accounts/templates')],  # Add the correct path to your templates
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -70,6 +75,7 @@ TEMPLATES = [
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'artify.wsgi.application'
 
@@ -120,11 +126,19 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
-# settings.py
-# Media files (uploads)
-# Keep your profile_photos folder setup
-PROFILE_PHOTOS_URL = '/profile_photos/'  # This will be your URL to access photos
-PROFILE_PHOTOS_ROOT = os.path.join(BASE_DIR, 'profile_photos')  # This points to your profile_photos folder
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static" / "website",
+]
+
+# Profile Photos
+PROFILE_PHOTOS_URL = '/profile_photos/'  # URL to access profile photos
+PROFILE_PHOTOS_ROOT = os.path.join(BASE_DIR, 'profile_photos')  # Path to profile photos folder
+
+# Event Images
+EVENT_IMAGES_URL = '/event_images/'  # URL to access event images
+EVENT_IMAGES_ROOT = os.path.join(BASE_DIR, 'event_images')  # Path to event images folder
+
 
 LOGIN_REDIRECT_URL = '/'  # Add this line
 
