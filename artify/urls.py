@@ -12,7 +12,8 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('', lambda request: render(request, 'Modified_Files/home.html'), name='home'),
     path('gallery/', include('gallery.urls')),  # Include gallery URLs
-
+    path('feedback/', include('feedback.urls', namespace='feedback')), 
+    path('blog/', include('blog.urls')),
     # Password reset paths
     path('password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),
     path('password_reset_done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),

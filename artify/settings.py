@@ -39,12 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts',  
+    'blog.apps.BlogConfig',
     'home',  # Ensure 'home' is included here
     'events',
     'gallery',
-
-
-
+    'feedback',
 
 ]
 
@@ -130,7 +129,8 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static" / "website",
 ]
-
+MEDIA_URL = '/profile_photos/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'profile_photos') 
 # Profile Photos
 PROFILE_PHOTOS_URL = '/profile_photos/'  # URL to access profile photos
 PROFILE_PHOTOS_ROOT = os.path.join(BASE_DIR, 'profile_photos')  # Path to profile photos folder
