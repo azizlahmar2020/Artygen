@@ -13,6 +13,9 @@ urlpatterns = [
     path('categories/<int:category_id>/subcategories/create/', views.subcategory_create, name='subcategory-create'),
     path('categories/<int:category_id>/subcategories/update/<int:pk>/', views.subcategory_update, name='subcategory-update'),
     path('categories/<int:category_id>/subcategories/delete/<int:pk>/', views.subcategory_delete, name='subcategory-delete'),
+    path('categories/<int:category_id>/subcategories/generate/', views.generate_subcategories, name='subcategory-generate'),
+    path('categories/<int:category_id>/subcategories/get_art_subcategories/', views.get_art_subcategories, name='get_art_subcategories'),
+
 
 
 

@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Category,Subcategory
 from .forms import CategoryForm, SubcategoryForm
@@ -8,8 +9,12 @@ import requests
 from artify.settings import GEMINI_API_KEY
 import os
 from requests import post, exceptions
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
 
 # List all categories
+
+@login_required
 def category_list(request):
     categories = Category.objects.all()
     return render(request, 'category_list.html', {'categories': categories})
@@ -43,7 +48,7 @@ def category_delete(request, pk):
         return redirect('category-list')
     return render(request, 'category_delete.html', {'category': category})
 
-
+@login_required
 def subcategory_list(request, category_id):
     category = get_object_or_404(Category, id=category_id)
     subcategories = Subcategory.objects.filter(category=category)
@@ -127,3 +132,39 @@ def subcategory_delete(request, category_id, pk):
         subcategory.delete()
         return redirect('subcategory-list', category_id=category.id)
     return render(request, 'subcategory_delete.html', {'subcategory': subcategory, 'category': category})
+
+
+import google.generativeai as genai
+
+@csrf_exempt
+def get_art_subcategories(request, category_id):
+    # Configure the API key
+    genai.configure(api_key='AIzaSyC-n1c-zVkWsTZokWzj3UrgQrUeJfVQ2L8')
+
+    # Create a Gemini model instance
+    model = genai.GenerativeModel('gemini-pro')
+
+    # Retrieve the category by ID
+    try:
+        category = Category.objects.get(id=category_id)  # Adjust if your primary key is different
+        category_name = category.name  # Get the category name
+        category_description = category.description  # Get the category description
+    except Category.DoesNotExist:
+        return JsonResponse({'error': 'Category not found'}, status=404)
+
+    # Prompt the model with the art category name
+    prompt = f"What are the subcategories of {category_name} and provide a brief description for each?"
+
+    # Generate the response
+    response = model.generate_content(prompt)
+    print(response)
+
+    # Process the response and extract subcategories and descriptions
+    subcategories = []
+    for line in response.text.split('\n'):
+        if ':' in line:
+            subcategory, description = line.split(':', 1)
+            subcategories.append({'subcategory': subcategory.strip(), 'description': description.strip()})
+
+    # Return the subcategories and descriptions as a JSON response
+    return JsonResponse({'subcategories': subcategories})
