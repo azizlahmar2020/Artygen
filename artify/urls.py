@@ -23,6 +23,9 @@ urlpatterns = [
     path('events/', include('events.urls')),
     path('', include('events.urls')),  # Include the events app URLs
     path('events/', include('events.urls')),  # Ensure this line is correct
+    path('artwork/', include('artwork.urls')),
+    path('generate/', include('generator.urls')),
+
 
 ]
 if settings.DEBUG:

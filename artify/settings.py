@@ -42,8 +42,10 @@ INSTALLED_APPS = [
     'blog.apps.BlogConfig',
     'home',  # Ensure 'home' is included here
     'events',
-    'gallery',
-    'feedback',
+    'artwork',
+    'generator',
+        'feedback',
+ 'gallery',
 
 ]
 
@@ -126,6 +128,8 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+STATICFILES_DIRS = [BASE_DIR / 'static']
+
 STATICFILES_DIRS = [
     BASE_DIR / "static" / "website",
 ]
@@ -139,6 +143,9 @@ PROFILE_PHOTOS_ROOT = os.path.join(BASE_DIR, 'profile_photos')  # Path to profil
 EVENT_IMAGES_URL = '/event_images/'  # URL to access event images
 EVENT_IMAGES_ROOT = os.path.join(BASE_DIR, 'event_images')  # Path to event images folder
 
+# Event Images
+EVENT_IMAGES_URL = '/event_images/'  # URL to access event images
+EVENT_IMAGES_ROOT = os.path.join(BASE_DIR, 'event_images')  # Path to event images folder
 
 LOGIN_REDIRECT_URL = '/'  # Add this line
 
@@ -157,3 +164,7 @@ EMAIL_HOST_PASSWORD = 'dixlydevhzuxcube'  # Use the app password without spaces
 
 # For testing purposes (don't forget to switch to the actual email backend in production)
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # Uncomment this for console backend if testing
+
+
+OPENAI_API_KEY = os.getenv('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')
+

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generated Artwork</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f7f7f7; /* Fond gris clair */
+            font-family: 'Roboto', sans-serif; /* Police de base */
+        }
+
+        .header {
+            text-align: center;
+            margin-top: 20px; /* Marges réduites */
+        }
+
+        h1 {
+            color: #333; /* Couleur du titre */
+            font-family: 'Patrick Hand', sans-serif; /* Police personnalisée */
+            font-size: 1.5rem; /* Taille de police ajustée */
+        }
+
+        .card {
+            border-radius: 15px; /* Coins arrondis */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Ombre moins prononcée */
+            overflow: hidden; /* Pour éviter le débordement */
+            max-width: 500px; /* Largeur maximale de la carte */
+            margin: auto; /* Centrer horizontalement */
+        }
+
+        .image-container {
+            position: relative; /* Pour le positionnement absolu des éléments internes */
+        }
+
+        .image-container img {
+            width: 100%; /* Prend toute la largeur */
+            height: auto; /* Ajuste la hauteur automatiquement */
+            border-bottom: 5px solid #d4af37; /* Bordure en bas */
+        }
+
+        .buttons {
+            padding: 15px; /* Espacement intérieur ajusté */
+            display: flex;
+            justify-content: space-between; /* Distribution égale des boutons */
+        }
+
+        .btn-custom {
+            background-color: #d4af37; /* Couleur du bouton */
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            padding: 10px 15px; /* Ajustement du rembourrage */
+            transition: background-color 0.3s;
+        }
+
+        .btn-custom:hover {
+            background-color: #b68c2a; /* Couleur au survol */
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Generated Artwork</h1>
+</div>
+
+<div class="container-fluid">
+    <div class="card">
+        <div class="image-container">
+            <img src="data:image/png;base64,{{ image_data }}" alt="Image Générée" id="generatedImage"/>
+        </div>
+        <div class="buttons"> <!-- Conteneur pour les boutons -->
+            {% if error %}
+                <p class="error" style="color: #ff5252; text-align: center;">Erreur : {{ error }}</p>
+            {% else %}
+                <p style="text-align: center;"><strong>Prompt :</strong> {{ prompt }}</p>
+                <a href="data:image/png;base64,{{ image_data }}" download="generated_image.png" class="btn-custom" id="downloadButton">Télécharger</a>
+                <a href="{% url 'generate_image' %}" class="btn-custom">New Image</a>
+            {% endif %}
+            <a href="http://127.0.0.1:8000/artwork/galleries/" class="btn-custom">Back to list</a> <!-- Nouveau bouton -->
+
+        </div>
+        
+    </div>
+</div>
+
+</body>
+</html>
