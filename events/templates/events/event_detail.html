@@ -4,75 +4,91 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ event.title }}</title>
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
-            background-color: #f8f9fa; /* Light background */
+            background-color: #f7f7f7;
+            font-family: 'Arial', sans-serif;
         }
-        .event-detail {
-            margin: 20px; /* Space around the detail section */
-            border: 1px solid #007bff; /* Border color */
-            border-radius: 5px; /* Rounded corners */
-            padding: 20px; /* Inner spacing */
-            background-color: white; /* Background for the detail section */
+
+        .container {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
+
+        h1 {
+            color: #333;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
         .event-image {
-            max-width: 100%; /* Ensure the image is responsive */
-            height: auto; /* Maintain aspect ratio */
+            border-radius: 10px;
+            width: 100%;
+            height: auto;
+            max-height: 400px;
+            object-fit: cover;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         }
-        .card {
-            margin-top: 20px; /* Space above cards */
+
+        .event-details {
+            margin-top: 20px;
+        }
+
+        .label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        .btn-custom {
+            background-color: #d4af37;
+            color: white;
+        }
+
+        .btn-custom:hover {
+            background-color: #b68c2a;
+        }
+
+        .golden-line {
+            border-top: 2px solid #d4af37;
+            margin: 20px 0;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="event-detail">
-            <h2>{{ event.title }}</h2>
-            {% if event.image %}
-                <img src="{{ event.image.url }}" alt="{{ event.title }}" class="event-image mb-3">
-            {% endif %}
-            <p><strong>Description:</strong> {{ event.description }}</p>
-            <p><strong>Location:</strong> {{ event.location }}</p>
-            <p><strong>Date:</strong> {{ event.date }}</p>
-            <p><strong>Capacity:</strong> {{ event.capacity }}</p>
+        <h1>{{ event.title }}</h1>
+        {% if event.image %}
+            <img src="{{ event.image.url }}" class="event-image" alt="{{ event.title }}">
+        {% else %}
+            <img src="https://via.placeholder.com/600x400" class="event-image" alt="No Image Available">
+        {% endif %}
+
+        <div class="golden-line"></div>
+
+        <div class="event-details">
+            <p class="label">Date: {{ event.date|date:"F j, Y" }}</p>
+            <p class="label">Location: {{ event.location }}</p>
+            <p class="label">Capacity: {{ event.capacity }}</p>
+            <p class="label">Event Type: {{ event.event_type }}</p>
+            <p class="label">Gallery: {% if event.gallery %}{{ event.gallery.name }}{% else %}No Gallery{% endif %}</p>
+            <p class="label">Description: {{ event.description }}</p>
         </div>
 
-        <!-- Form to invite participants -->
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Invite Participants</h3>
-            </div>
-            <div class="card-body">
-                <form method="post" action="{% url 'event_participate' event.id %}">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <button type="submit" class="btn btn-primary">Send Invitations</button>
-                </form>
-            </div>
-        </div>
-
-        <!-- List of participants -->
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Participants</h3>
-            </div>
-            <div class="card-body">
-                <ul class="list-group">
-                    {% for participant in event.participants.all %}
-                        <li class="list-group-item">{{ participant.username }} ({{ participant.email }})</li>
-                    {% empty %}
-                        <li class="list-group-item">No participants yet.</li>
-                    {% endfor %}
-                </ul>
-            </div>
+        <div class="text-center mt-4">
+            <a href="{% url 'event_update' event.pk %}" class="btn btn-custom">Edit Event</a>
+            <form action="{% url 'event_delete' event.pk %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Delete Event</button>
+            </form>
         </div>
     </div>
 
-    <!-- Bootstrap JS (Optional) -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Optional Font Awesome for icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </body>
 </html>

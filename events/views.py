@@ -1,35 +1,61 @@
 from django.shortcuts import render, redirect, get_object_or_404
+
+from accounts import models
 from .models import Event
 from .forms import EventForm
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, DetailView
 from django.contrib import messages
+from gallery.models import Gallery  # Import the Gallery model
+from .utils import is_image_appropriate  # Import the utility function
 
 @login_required
 def event_create(request):
     if request.method == 'POST':
         form = EventForm(request.POST, request.FILES)
         if form.is_valid():
+            image = form.cleaned_data.get('image')
+            
+            # Validate image using NudeNet
+            if image and not is_image_appropriate(image):
+                messages.error(request, "Inappropriate content detected in the uploaded image. Please upload a different image.")
+                galleries = Gallery.objects.all()  # Fetch all galleries
+                return render(request, 'events/event_form.html', {'form': form,'galleries': galleries})
+
+            # Proceed to save the event if the image is appropriate
             event = form.save(commit=False)
             event.creator = request.user  # Set the creator as the logged-in user
             event.save()
-            return redirect('event_list')  # Make sure this matches the URL pattern
+            messages.success(request, 'Event created successfully!')
+            return redirect('event_list')
     else:
         form = EventForm()
-    return render(request, 'events/event_form.html', {'form': form})
 
+    galleries = Gallery.objects.all()  # Fetch all galleries
+    return render(request, 'events/event_form.html', {'form': form, 'galleries': galleries})
+    
 @login_required
 def event_update(request, pk):
     event = get_object_or_404(Event, pk=pk)
     if request.method == 'POST':
         form = EventForm(request.POST, request.FILES, instance=event)
         if form.is_valid():
+            image = form.cleaned_data.get('image')
+            
+            # Validate image using NudeNet
+            if image and not is_image_appropriate(image):
+                messages.error(request, "Inappropriate content detected in the uploaded image.")
+                return render(request, 'events/event_form.html', {'form': form})
+
+            # Proceed to save the event if the image is appropriate
             form.save()
             messages.success(request, 'Event updated successfully!')
             return redirect('event_list')
     else:
         form = EventForm(instance=event)
-    return render(request, 'events/event_form.html', {'form': form})
+
+    galleries = Gallery.objects.all()  # Fetch all galleries
+    return render(request, 'events/event_form.html', {'form': form, 'galleries': galleries})  # Pass galleries to the template
 
 @login_required
 def event_delete(request, pk):
@@ -52,6 +78,15 @@ class EventDetailView(DetailView):
     
 @login_required
 def my_events_view(request):
-    # Filter events by the logged-in user
-    events = Event.objects.filter(creator=request.user)
-    return render(request, 'events/my_events.html', {'events': events})
+    query = request.GET.get('q', '')
+    events = Event.objects.all()
+
+    if query:
+        events = events.filter(
+            models.Q(title__icontains=query) |
+            models.Q(description__icontains=query) |
+            models.Q(location__icontains=query) |
+            models.Q(event_type__icontains=query)
+        )
+
+    return render(request, 'events/my_events.html', {'events': events, 'request': request})

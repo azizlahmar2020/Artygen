@@ -3,6 +3,8 @@ from django.conf import settings
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
+
+from events.utils import is_image_appropriate
 from .forms import CustomUserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
@@ -15,11 +17,23 @@ def register(request):
             user = form.save()
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password1')
+            
+            # Check for nudity in the uploaded image
+            profile_image = request.FILES.get('profile_image')  # Adjust this based on your form field name
+            if profile_image and not is_image_appropriate(profile_image):
+                form.add_error('profile_image', 'The uploaded image contains inappropriate content.')
+                return render(request, 'accounts/register.html', {'form': form})
+
             user = authenticate(username=username, password=password)
             login(request, user)
-            return redirect('home')  # Replace 'home' with your actual home view
+            # Check if the user has the 'admin' role and redirect accordingly
+            if user.profile.role == 'admin':
+                return redirect('/admin/')  # Redirect to Django's admin interface
+            else:
+                return redirect('home')  # Replace 'home' with your actual home view
     else:
         form = CustomUserCreationForm()
+    
     return render(request, 'accounts/register.html', {'form': form})
 
 def user_login(request):
@@ -29,7 +43,11 @@ def user_login(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('profile')  # Redirect to profile after successful login
+            # Check if the user has the 'admin' role and redirect accordingly
+            if user.profile.role == 'admin':
+                return redirect('/admin/')  # Redirect to Django's admin interface
+            else:
+                return redirect('profile')  # Redirect to profile for regular users
         else:
             messages.error(request, 'Invalid username or password.')  # Show error message
     return render(request, 'accounts/login.html')

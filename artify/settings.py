@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'artwork',
     'generator',
         'feedback',
-
+ 'gallery',
 
 ]
 
@@ -130,20 +130,22 @@ STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [BASE_DIR / 'static']
 
+STATICFILES_DIRS = [
+    BASE_DIR / "static" / "website",
+]
 MEDIA_URL = '/profile_photos/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'profile_photos') 
-
+# Profile Photos
+PROFILE_PHOTOS_URL = '/profile_photos/'  # URL to access profile photos
+PROFILE_PHOTOS_ROOT = os.path.join(BASE_DIR, 'profile_photos')  # Path to profile photos folder
 
 # Event Images
 EVENT_IMAGES_URL = '/event_images/'  # URL to access event images
 EVENT_IMAGES_ROOT = os.path.join(BASE_DIR, 'event_images')  # Path to event images folder
 
-
-# settings.py
-# Media files (uploads)
-# Keep your profile_photos folder setup
-PROFILE_PHOTOS_URL = '/profile_photos/'  # This will be your URL to access photos
-PROFILE_PHOTOS_ROOT = os.path.join(BASE_DIR, 'profile_photos')  # This points to your profile_photos folder
+# Event Images
+EVENT_IMAGES_URL = '/event_images/'  # URL to access event images
+EVENT_IMAGES_ROOT = os.path.join(BASE_DIR, 'event_images')  # Path to event images folder
 
 LOGIN_REDIRECT_URL = '/'  # Add this line
 

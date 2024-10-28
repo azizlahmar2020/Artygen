@@ -5,12 +5,14 @@ from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.static import serve
+from django.shortcuts import render
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
+    path('', lambda request: render(request, 'Modified_Files/home.html'), name='home'),
+    path('gallery/', include('gallery.urls')),  # Include gallery URLs
     path('feedback/', include('feedback.urls', namespace='feedback')), 
-    path('', include('home.urls')),
     path('blog/', include('blog.urls')),
     # Password reset paths
     path('password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),
