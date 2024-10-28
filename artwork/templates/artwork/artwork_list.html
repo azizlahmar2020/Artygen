@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liste des œuvres</title>
+    <title>My artworks</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
@@ -132,16 +132,16 @@
 
 <body>
 
-    <h1>Liste des œuvres</h1>
+    <h1>My artworks</h1>
 
     <!-- Barre de recherche centrée -->
     <div class="container">
         <div class="search-container">
             <form method="GET" action="">
                 <input type="text" name="search" placeholder="Rechercher par tag..." value="{{ search_query }}">
-                <button type="submit">Rechercher</button>
-                <a href="{% url 'artwork_create' %}" class="add-artwork-btn">+ Ajouter une œuvre</a>
-                <a href="http://127.0.0.1:8000/generate/" class="generate-art-btn">Générer mon propre art</a>
+                <button type="submit">Search</button>
+                <a href="{% url 'artwork_create' %}" class="add-artwork-btn">+ Add Artwork</a>
+                <a href="http://127.0.0.1:8000/generate/" class="generate-art-btn">Generate Art with AI</a>
             </form>
         </div>
     </div>
@@ -163,10 +163,10 @@
                 <div class="card">
                     <img src="{{ artwork.file.url }}" alt="{{ artwork.title }} - Image" loading="lazy">
                     <div class="card-body">
-                        <h5 class="card-title">Titre : {{ artwork.title }}</h5>
-                        <p class="card-text">Catégorie : {{ artwork.category }}</p>
+                        <h5 class="card-title">Title : {{ artwork.title }}</h5>
+                        <p class="card-text">Category : {{ artwork.category }}</p>
                         <p class="card-text">Description : {{ artwork.description|truncatewords:10 }}</p>
-                        <a href="{% url 'artwork_detail' artwork.pk %}">Voir Détails</a>
+                        <a href="{% url 'artwork_detail' artwork.pk %}">See Details</a>
                     </div>
                 </div>
             </div>

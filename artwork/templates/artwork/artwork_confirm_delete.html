@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Confirmer la suppression</title>
+    <title>Confirm the delete</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
 
 <div class="container mt-5">
-    <h1>Confirmer la suppression</h1>
-    <p>Êtes-vous sûr de vouloir enlever "{{ artwork.title }}" de la galerie ?</p>
+    <h1>Confirm the delete</h1>
+    <p>Are you sure to delete "{{ artwork.title }}" from collection ?</p>
     <form method="POST">
         {% csrf_token %}
-        <button type="submit" class="btn btn-danger">Supprimer</button>
-        <a href="{% url 'gallery_detail' gallery_pk %}" class="btn btn-secondary">Annuler</a>
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a href="{% url 'gallery_detail' gallery_pk %}" class="btn btn-secondary">Cancel</a>
     </form>
 </div>
 

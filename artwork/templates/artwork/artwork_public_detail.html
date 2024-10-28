@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Détails de l'œuvre</title>
+    <title>Artwork Details</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
@@ -91,15 +91,15 @@
 
             <div class="col-md-6 details-container">
                 <h1>{{ artwork.title }}</h1>
-                <p><strong>Auteur :</strong> {{ artwork.user.username }}</p>
+                <p><strong>Artist :</strong> {{ artwork.user.username }}</p>
                 <p><strong>Description :</strong> {{ artwork.description }}</p>
-                <p><strong>Création :</strong> {{ artwork.created_at }}</p>
-                <p><strong>Catégorie :</strong> {{ artwork.category }}</p>
+                <p><strong>Creation :</strong> {{ artwork.created_at }}</p>
+                <p><strong>Category :</strong> {{ artwork.category }}</p>
                 <p><strong>Tags :</strong> {{ artwork.tags }}</p>
 
                 <div class="d-flex justify-content-center">
-                    <a href="{% url 'add_to_gallery' artwork.id %}" class="btn-custom">Ajouter à la Galerie</a>
-                    <a href="{% url 'all_artworks' %}" class="btn-custom">Retour &rarr;</a> <!-- Flèche pour Retour -->
+                    <a href="{% url 'add_to_gallery' artwork.id %}" class="btn-custom">Add to collection</a>
+                    <a href="{% url 'all_artworks' %}" class="btn-custom">Back to list &rarr;</a> <!-- Flèche pour Retour -->
                 </div>
             </div>
         </div>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mes Galeries</title>
+    <title>My Collections</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"> <!-- Ajout de Roboto -->
@@ -114,7 +114,7 @@
 </head>
 <body>
 
-    <h1>Mes Galeries</h1>
+    <h1>My Collections</h1>
 
 {% if messages %}
     {% for message in messages %}
@@ -131,11 +131,11 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ gallery.name }}</h5>
                             <p class="card-text">Description : {{ gallery.description }}</p>
-                            <p class="card-text">Œuvres d'art : {{ gallery.artworks.count }}</p>
+                            <p class="card-text">Artworks : {{ gallery.artworks.count }}</p>
                             <div class="button-container">
-                                <a href="{% url 'gallery_detail' gallery.id %}">Voir Galerie</a>
+                                <a href="{% url 'gallery_detail' gallery.id %}">See Collection</a>
                                 <button class="btn delete-button" data-toggle="modal" data-target="#deleteModal{{ gallery.id }}">
-                                    <i class="fas fa-trash-alt"></i> Supprimer
+                                    <i class="fas fa-trash-alt"></i> Delete
                                 </button>
                             </div>
                         </div>

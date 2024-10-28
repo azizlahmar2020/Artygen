@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liste de toutes les œuvres d'art</title>
+    <title>All Artworks</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
@@ -105,13 +105,13 @@
 
 <body>
 
-    <h1>Toutes les œuvres d'art</h1>
+    <h1>All Artworks</h1>
 
     <!-- Barre de recherche -->
     <div class="search-container">
         <form method="GET" action="">
             <input type="text" name="search" placeholder="Rechercher par tag..." value="{{ search_query }}">
-            <button type="submit">Rechercher</button>
+            <button type="submit">Search</button>
         </form>
     </div>
     {% if messages %}
@@ -136,7 +136,7 @@
                         <p class="card-text">Artist: {{ artwork.user.username  }}</p>
                         <p class="card-text">Category: {{ artwork.category }}</p>
                         <p class="card-text">Description : {{ artwork.description|truncatewords:10 }}</p>
-                        <a href="{% url 'artwork_public_detail' artwork.pk %}">Voir Détails</a>
+                        <a href="{% url 'artwork_public_detail' artwork.pk %}">See Details</a>
                     </div>
                 </div>
             </div>

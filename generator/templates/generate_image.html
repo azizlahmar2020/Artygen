@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Générateur d'Image AI</title>
+    <title>Generate Artwork With AI</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
@@ -109,16 +109,16 @@
     <div class="container">
         <div class="card">
             <div class="card-body">
-                <h1>Générateur d'Image AI</h1>
+                <h1>Generate Artwork With AI</h1>
                 <form method="post" onsubmit="showProgressBar()">
                     {% csrf_token %}
                     <div class="form-group">
-                        <label for="prompt">Entrez votre prompt :</label>
+                        <label for="prompt">Enter your prompt :</label>
                         <input type="text" id="prompt" name="prompt" required placeholder="e.g., Une ville futuriste" class="form-control">
                     </div>
 
                     <div class="form-group">
-                        <label for="style">Sélectionnez un style :</label>
+                        <label for="style">Select a style :</label>
                         <select id="style" name="style" required class="form-control">
                             <option value="réaliste">Réaliste</option>
                             <option value="dessin animé">Dessins Animés</option>
@@ -129,8 +129,8 @@
                         </select>
                     </div>
 
-                    <button type="submit" class="btn btn-primary btn-block">Générer l'image</button>
-                    <a href="http://127.0.0.1:8000/artwork/" class="btn-custom btn-block">Retour</a> <!-- Bouton avec largeur identique -->
+                    <button type="submit" class="btn btn-primary btn-block">Generate</button>
+                    <a href="http://127.0.0.1:8000/artwork/" class="btn-custom btn-block">Back</a> <!-- Bouton avec largeur identique -->
 
                 </form>
 
@@ -143,7 +143,7 @@
                     <p class="error">Erreur : {{ error }}</p>
                 {% elif image_data %}
                     <div class="result">
-                        <h2>Image Générée</h2>
+                        <h2>Generated Arwork</h2>
                         <img src="data:image/png;base64,{{ image_data }}" alt="Image Générée" />
                         <p><strong>Prompt :</strong> {{ prompt }}</p>
                         <p><strong>Style :</strong> {{ style }}</p>

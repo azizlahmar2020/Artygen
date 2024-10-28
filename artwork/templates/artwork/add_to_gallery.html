@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ajouter à la Galerie</title>
+    <title>Add to collection</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
@@ -57,14 +57,14 @@
 <div class="container">
     <div class="card">
         <div class="card-body">
-            <h2 class="card-title text-center mb-4">Ajouter à la Galerie : {{ artwork.title }}</h2>
+            <h2 class="card-title text-center mb-4">Add to collection : {{ artwork.title }}</h2>
             <form method="POST" onsubmit="return validateForm()">
                 {% csrf_token %}
                 
                 <div class="form-group">
-                    <label><input type="radio" name="action" value="select_gallery" checked onchange="toggleGalleryForms()"> Choisissez une galerie existante :</label>
+                    <label><input type="radio" name="action" value="select_gallery" checked onchange="toggleGalleryForms()"> Choose collection :</label>
                     <select name="gallery" id="gallery" class="form-control" style="display: inline-block;">
-                        <option value="">Sélectionnez une galerie</option>
+                        <option value="">Select a collection</option>
                         {% for gallery in galleries %}
                             <option value="{{ gallery.id }}">{{ gallery.name }}</option>
                         {% endfor %}
@@ -72,15 +72,15 @@
                 </div>
 
                 <div class="form-group">
-                    <label><input type="radio" name="action" value="create_gallery" onchange="toggleGalleryForms()"> Ou créez une nouvelle galerie :</label>
+                    <label><input type="radio" name="action" value="create_gallery" onchange="toggleGalleryForms()"> Or create a new collection :</label>
                     <div id="new-gallery-form" style="display: none;">
                         <input type="text" name="name" maxlength="255" id="id_name" class="form-control" placeholder="Nom de la galerie"> <!-- Champ de nom -->
                     </div>
                 </div>
 
-                <button type="submit" id="submit-button" class="btn btn-primary btn-block">Ajouter à la galerie</button>
+                <button type="submit" id="submit-button" class="btn btn-primary btn-block">Add to collection</button>
             </form>
-            <a href="{% url 'all_artworks' %}" class="btn btn-secondary btn-block mt-3">Retour à la liste des œuvres</a>
+            <a href="{% url 'all_artworks' %}" class="btn btn-secondary btn-block mt-3">Back to list</a>
         </div>
     </div>
 </div>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Détails de l'œuvre</title>
+    <title>Artwork Details</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
@@ -113,19 +113,19 @@
 
             <div class="col-md-6 details-container">
                 <h1>{{ artwork.title }}</h1>
-                <p><strong>Auteur :</strong> {{ artwork.user.username }}</p>
+                <p><strong>Artist :</strong> {{ artwork.user.username }}</p>
                 <p><strong>Description :</strong> {{ artwork.description }}</p>
-                <p><strong>Création :</strong> {{ artwork.created_at }}</p>
-                <p><strong>Catégorie :</strong> {{ artwork.category }}</p>
+                <p><strong>Creation :</strong> {{ artwork.created_at }}</p>
+                <p><strong>Category :</strong> {{ artwork.category }}</p>
                 <p><strong>Tags :</strong> {{ artwork.tags }}</p>
 
                 <div class="d-flex justify-content-center">
-                    <a href="{% url 'artwork_update' artwork.pk %}" class="btn-custom">Modifier</a>
+                    <a href="{% url 'artwork_update' artwork.pk %}" class="btn-custom">Edit</a>
                     <form action="{% url 'artwork_delete' artwork.pk %}" method="POST" style="display:inline;">
                         {% csrf_token %}
-                        <button type="submit" class="btn btn-warning">Supprimer</button> <!-- Utilisation de la classe btn-warning -->
+                        <button type="submit" class="btn btn-warning">Delete</button> <!-- Utilisation de la classe btn-warning -->
                     </form>
-                    <a href="{% url 'artwork_list' %}" class="btn-grey">Retour &rarr;</a>
+                    <a href="{% url 'artwork_list' %}" class="btn-grey">Back to list &rarr;</a>
                 </div>
             </div>
         </div>
