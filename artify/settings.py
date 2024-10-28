@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'accounts',  
     'blog.apps.BlogConfig',
     'home',  # Ensure 'home' is included here
-
+    'feedback',
 
 ]
 
