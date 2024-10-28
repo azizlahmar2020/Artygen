@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts',  
+    'blog.apps.BlogConfig',
     'home',  # Ensure 'home' is included here
     'feedback',
 
@@ -120,6 +121,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [BASE_DIR / 'static']
+
+MEDIA_URL = '/profile_photos/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'profile_photos') 
+
+
+
+
 # settings.py
 # Media files (uploads)
 # Keep your profile_photos folder setup
