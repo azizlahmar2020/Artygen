@@ -7,6 +7,7 @@ from django.conf.urls.static import static
 from django.views.static import serve
 from django.shortcuts import render
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
@@ -27,8 +28,18 @@ urlpatterns = [
     path('generate/', include('generator.urls')),
 
 
+    #category URLs
+    path('category/', include('category.urls')),
+    path('subcategory/', include('category.urls')),
+
+
+    
+
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
+
+if settings.DEBUG:
+        urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
