@@ -9,6 +9,7 @@ from django.views.static import serve
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
+    path('feedback/', include('feedback.urls', namespace='feedback')), 
     path('', include('home.urls')),
 
     # Password reset paths

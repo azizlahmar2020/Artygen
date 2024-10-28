@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts',  
     'home',  # Ensure 'home' is included here
-
+    'feedback',
 
 ]
 
