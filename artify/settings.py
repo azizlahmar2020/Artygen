@@ -39,10 +39,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts',  
+    'blog.apps.BlogConfig',
     'home',  # Ensure 'home' is included here
     'events',
     'artwork',
-    'generator'
+    'generator',
+        'feedback',
+
+
 ]
 
 MIDDLEWARE = [
@@ -123,14 +127,23 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
-# Profile Photos
-PROFILE_PHOTOS_URL = '/profile_photos/'  # URL to access profile photos
-PROFILE_PHOTOS_ROOT = os.path.join(BASE_DIR, 'profile_photos')  # Path to profile photos folder
+
+STATICFILES_DIRS = [BASE_DIR / 'static']
+
+MEDIA_URL = '/profile_photos/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'profile_photos') 
+
 
 # Event Images
 EVENT_IMAGES_URL = '/event_images/'  # URL to access event images
 EVENT_IMAGES_ROOT = os.path.join(BASE_DIR, 'event_images')  # Path to event images folder
 
+
+# settings.py
+# Media files (uploads)
+# Keep your profile_photos folder setup
+PROFILE_PHOTOS_URL = '/profile_photos/'  # This will be your URL to access photos
+PROFILE_PHOTOS_ROOT = os.path.join(BASE_DIR, 'profile_photos')  # This points to your profile_photos folder
 
 LOGIN_REDIRECT_URL = '/'  # Add this line
 
