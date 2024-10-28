@@ -76,6 +76,8 @@
     </style>
 </head>
 <body>
+    {% include '../feedback/navbar.html' %}
+
     <div class="container">
         <h2>{% if form.instance.pk %}Edit Gallery{% else %}Create Gallery{% endif %}</h2>
         

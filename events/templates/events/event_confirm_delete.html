@@ -6,6 +6,8 @@
     <title>Delete Event</title>
 </head>
 <body>
+    {% include '../events/navbar.html' %}
+
     <h2>Are you sure you want to delete "{{ event.title }}"?</h2>
     <form method="post">
         {% csrf_token %}

@@ -2,7 +2,10 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400&display=swap" rel="stylesheet">
 
+    <!-- Bootstrap for responsive layout -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Favorites</title>
@@ -15,7 +18,7 @@
             padding: 0;
         }
 
-        .container {
+        .container1 {
             max-width: 80%;
             margin: 40px auto;
             padding: 20px;
@@ -250,12 +253,35 @@
             border-radius: 5px;
             background-color: #f9f9f9;
         }
+        .back-btn {
+            display: inline-block;
+            background-color: #f0f0f0;  /* Couleur de fond par défaut */
+            color: #333;                /* Couleur du texte */
+            padding: 10px 20px;         /* Espace interne du bouton */
+            border-radius: 5px;         /* Coins arrondis */
+            text-decoration: none;      /* Retire la décoration de texte (utile pour les liens) */
+            font-weight: bold;
+            font-size: 14px;
+            border: 1px solid #ddd;     /* Bordure fine et discrète */
+            transition: background-color 0.3s ease, color 0.3s ease; /* Transition pour le hover */
+            cursor: pointer;            /* Curseur en forme de main */
+        }
+        
+        .back-btn:hover {
+            background-color: #333;     /* Couleur de fond au survol */
+            color: #fff;                /* Couleur du texte au survol */
+            border-color: #333;         /* Changer la couleur de la bordure au survol */
+        }
         
     </style>
 </head>
 <body>
-    <div class="container">
+    {% include '../Blog/navbar.html' %}
+
+    <div class="container1">
         <header>
+            <a href="{% url 'post-home' %}" class="back-btn">Back to Blog</a> <!-- Replace with the correct URL name -->
+
             <h1>My Favorites</h1>
             <input type="text" class="search-bar" id="searchInput" placeholder="Search a favorite..." onkeyup="filterFavourites()">
         </header>

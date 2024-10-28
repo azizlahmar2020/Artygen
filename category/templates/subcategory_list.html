@@ -109,6 +109,8 @@
     </style>
   </head>
   <body>
+    {% include './navbar.html' %}
+
     <div class="container mt-4">
       <h1 class="text-center my-4">Subcategories for {{ category.name }}</h1>
       <a href="{% url 'category-list'  %}" class="btn custom-btn btn-cancel">

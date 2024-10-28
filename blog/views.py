@@ -293,3 +293,6 @@ def save_to_favourites(request, post_id):
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=500)
     return JsonResponse({'error': 'Invalid request method.'}, status=400)
+
+def blog(request):
+    return render(request, 'blog.html')

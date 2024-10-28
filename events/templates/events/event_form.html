@@ -76,6 +76,8 @@
     </style>
 </head>
 <body>
+    {% include '../events/navbar.html' %}
+
     <div class="container">
         <h2>{% if form.instance.pk %}Edit Event{% else %}Create Event{% endif %}</h2>
         

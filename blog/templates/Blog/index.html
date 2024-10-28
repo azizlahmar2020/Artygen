@@ -23,6 +23,7 @@
     </style>
 </head>
 <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' class="h-full bg-gray-100">
+    {% include '../Blog/navbar.html' %}
 
 <div class="flex justify-center items-center h-screen">
     <form id="container" tabindex="0" hx-trigger="input delay:200ms"
