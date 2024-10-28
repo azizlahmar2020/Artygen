@@ -33,14 +33,16 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'widget_tweaks',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts',  
     'home',  # Ensure 'home' is included here
-
-
+    'events',
+    'artwork',
+    'generator'
 ]
 
 MIDDLEWARE = [
@@ -58,7 +60,7 @@ ROOT_URLCONF = 'artify.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'accounts/templates')],  # Add the correct path to your templates
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -70,6 +72,7 @@ TEMPLATES = [
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'artify.wsgi.application'
 
@@ -120,11 +123,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
-# settings.py
-# Media files (uploads)
-# Keep your profile_photos folder setup
-PROFILE_PHOTOS_URL = '/profile_photos/'  # This will be your URL to access photos
-PROFILE_PHOTOS_ROOT = os.path.join(BASE_DIR, 'profile_photos')  # This points to your profile_photos folder
+# Profile Photos
+PROFILE_PHOTOS_URL = '/profile_photos/'  # URL to access profile photos
+PROFILE_PHOTOS_ROOT = os.path.join(BASE_DIR, 'profile_photos')  # Path to profile photos folder
+
+# Event Images
+EVENT_IMAGES_URL = '/event_images/'  # URL to access event images
+EVENT_IMAGES_ROOT = os.path.join(BASE_DIR, 'event_images')  # Path to event images folder
+
 
 LOGIN_REDIRECT_URL = '/'  # Add this line
 
@@ -143,3 +149,7 @@ EMAIL_HOST_PASSWORD = 'dixlydevhzuxcube'  # Use the app password without spaces
 
 # For testing purposes (don't forget to switch to the actual email backend in production)
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # Uncomment this for console backend if testing
+
+
+OPENAI_API_KEY = os.getenv('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')
+

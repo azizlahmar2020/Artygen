@@ -17,6 +17,15 @@ urlpatterns = [
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
     path('profile_photos/<path:path>/', serve, {'document_root': settings.PROFILE_PHOTOS_ROOT}, name='profile_photos'),  # Add this line
+    path('events/', include('events.urls')),
+    path('', include('events.urls')),  # Include the events app URLs
+    path('events/', include('events.urls')),  # Ensure this line is correct
+    path('artwork/', include('artwork.urls')),
+    path('generate/', include('generator.urls')),
+
 
 ]
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 
