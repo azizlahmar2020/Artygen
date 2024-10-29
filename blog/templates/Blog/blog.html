@@ -35,7 +35,6 @@
             font-family: 'Roboto', sans-serif;
             background-color: #f8f8f8; /* Couleur de fond douce */
             color: #333; /* Couleur du texte principale */
-            padding: 20px;
         }
 
         h1 {
@@ -551,18 +550,18 @@ h2 {
 
 
     </style>
-    {% include '../Blog/navbar.html' %}
+   
 
 </head>
 
 <body>
-
-    <h1>Inspiration - Art Blog</h1>
-
+    
+    {% include '../Blog/navbar.html' %}
+<h1>Inspiration - Art Blog</h1>
     <!-- Button to trigger the modal -->
     <!-- Assurez-vous d'inclure Font Awesome dans votre projet -->
 
-    <div class="d-flex justify-content-center mb-4" style="background-color: #f8f9fa; padding: 20px; border-radius: 10px;">
+    <div class="d-flex justify-content-center mb-4" style=" padding: 20px; border-radius: 10px;">
         <button type="button" class="btn btn-custom me-2" data-toggle="modal" data-target="#newPostModal">
             <i class="fas fa-plus"></i> Create a New Post
         </button>
