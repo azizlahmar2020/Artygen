@@ -10,9 +10,9 @@ urlpatterns = [
     path('<int:pk>/edit/', views.artwork_update, name='artwork_update'),
     path('<int:pk>/delete/', views.artwork_delete, name='artwork_delete'),
     path('<int:artwork_id>/add-to-gallery/', views.add_to_gallery, name='add_to_gallery'),  # URL pour ajouter à la galerie
-    path('galleries/', views.gallery_list, name='gallery_list'),  # This should point to your gallery_list view
-    path('galleries/<int:gallery_id>/', views.gallery_detail, name='gallery_detail'),
+    path('galleries/', views.collection_list, name='collection_list'),  # This should point to your gallery_list view
+    path('galleries/<int:gallery_id>/', views.collection_detail, name='collection_detail'),
     path('galleries/<int:gallery_id>/remove-artwork/<int:artwork_id>/', views.remove_artwork_from_gallery, name='remove_artwork_from_gallery'),
-    path('gallery/delete/<int:gallery_id>/', views.gallery_delete, name='gallery_delete'),  # URL pour supprimer une galerie
+    path('gallery/delete/<int:gallery_id>/', views.collection_delete, name='collection_delete'),  # URL pour supprimer une galerie
 
 ]

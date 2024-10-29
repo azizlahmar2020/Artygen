@@ -136,7 +136,7 @@
                         <h5 class="card-title">Title : {{ artwork.title }}</h5>
                         <p class="card-text">Artist: {{ artwork.user.username  }}</p>
                         <p class="card-text">Category: {{ artwork.category }}</p>
-                        <p class="card-text">Description : {{ artwork.description|truncatewords:10 }}</p>
+                        <p class="card-text">Tag: {{ artwork.tags }}</p>
                         <a href="{% url 'artwork_public_detail' artwork.pk %}">See Details</a>
                     </div>
                 </div>

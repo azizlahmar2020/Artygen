@@ -5,7 +5,7 @@ from .forms import FeedbackForm
 from django.db import models
 from django.contrib.auth.models import User  # Ajoute ceci si ce n'est pas déjà présent
 import pandas as pd
-from home.models import Artwork  # Assurez-vous que cela correspond à l'emplacement de votre modèle Artwork
+from artwork.models import Artwork  # Assurez-vous que cela correspond à l'emplacement de votre modèle Artwork
 from django.contrib.auth.decorators import login_required
 from sklearn.metrics.pairwise import cosine_similarity
 from django.shortcuts import render
@@ -121,34 +121,32 @@ def create_user_item_matrix(feedbacks):
 
 @login_required
 def submit_feedback(request):
+    artworks = Artwork.objects.all()  # Retrieve all artworks for dropdown
+
     if request.method == 'POST':
-        # Récupérer l'ID de l'œuvre d'art depuis le formulaire
+        # Get the artwork based on the selected title
         artwork_id = request.POST.get('artwork_id')
         artwork = Artwork.objects.get(id=artwork_id)
 
-        # Créer un nouvel objet Feedback
+        # Create and save a new Feedback instance
         feedback = Feedback(
             user=request.user,
             artwork=artwork,
             comment=request.POST['comment'],
             rating=request.POST['rating']
         )
-        feedback.save()  # Enregistrer le feedback dans la base de données
+        feedback.save()
 
-        # Vérifier si l'utilisateur a atteint le nombre requis de feedbacks pour un badge
+        # Badge awarding logic
         feedback_count = Feedback.objects.filter(user=request.user).count()
         badges = Badge.objects.filter(criteria__lte=feedback_count)
-
-        # Attribuer des badges à l'utilisateur
         for badge in badges:
-            # Vérifiez si l'utilisateur a déjà reçu ce badge
             if not UserBadge.objects.filter(user=request.user, badge=badge).exists():
                 UserBadge.objects.create(user=request.user, badge=badge)
 
-        return redirect('feedback:feedback_list')  # Correct redirection to feedback list
-  # Rediriger vers la liste des feedbacks après la soumission
+        return redirect('feedback:feedback_list')
 
-    return render(request, 'feedback/submit_feedback.html')
+    return render(request, 'feedback/submit_feedback.html', {'artworks': artworks})
     
 def feedback_update(request, id):
     feedback = get_object_or_404(Feedback, id=id)
@@ -184,28 +182,35 @@ def assign_badges_to_user(user):
         else:
             print(f"Badge '{badge.name}' already awarded to {user.username}")  # Ajoutez cette ligne
 
+@login_required
 def feedback_list(request):
-    # Récupère tous les feedbacks
+    # Retrieve all feedbacks
     feedbacks = Feedback.objects.all()
 
-    # Compte le nombre de feedbacks pour l'utilisateur connecté
+    # Count the number of feedbacks for the logged-in user
     feedback_count = Feedback.objects.filter(user=request.user).count()
     print(f"Feedback count for {request.user.username}: {feedback_count}")
 
-    # Vérifier et attribuer des badges à l'utilisateur
+    # Check and assign badges to the user
     assign_badges_to_user(request.user)
 
-    # Trouve les badges éligibles pour l'utilisateur connecté
+    # Find badges eligible for the logged-in user
     badges = Badge.objects.filter(criteria__lte=feedback_count)
     print(f"Badges eligible for {request.user.username}: {[badge.name for badge in badges]}")
 
-    # Crée une liste pour les badges à afficher
+    # Create a list for badges to display
     user_badges = UserBadge.objects.filter(user=request.user)
 
-    # Remplacer les IDs par les titres dans les feedbacks
+    # Replace IDs with titles in the feedbacks
     feedbacks_with_titles = []
     for feedback in feedbacks:
-        artwork_title = feedback.artwork.title  # Assurez-vous que `title` est un champ de votre modèle Artwork
+        # Safely access the artwork's title, handling cases where artwork does not exist
+        try:
+            artwork = feedback.artwork  # This will use the reverse relationship
+            artwork_title = artwork.title
+        except Artwork.DoesNotExist:
+            artwork_title = "Artwork not available"
+
         feedbacks_with_titles.append({
             'id': feedback.id,
             'artwork_title': artwork_title,

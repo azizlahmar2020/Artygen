@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from home.models import Artwork  # Assurez-vous que cela correspond à l'emplacement de votre modèle Artwork
+from artwork.models import Artwork  # Assurez-vous que cela correspond à l'emplacement de votre modèle Artwork
 
 class Feedback(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)  # L'utilisateur qui donne le feedback

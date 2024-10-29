@@ -113,11 +113,11 @@ def add_to_gallery(request, artwork_id):
     })
 
     @login_required  
-    def gallery_detail(request, pk):
+    def collection_detail(request, pk):
         gallery = get_object_or_404(ArtCollection, pk=pk)
         return render(request, 'artwork/gallery_detail.html', {'gallery': gallery})
 
-def gallery_list(request):
+def collection_list(request):
     if request.user.is_authenticated:
         galleries = ArtCollection.objects.filter(user=request.user)
     else:
@@ -126,7 +126,7 @@ def gallery_list(request):
     return render(request, 'artwork/gallery_list.html', {'galleries': galleries})
 
 @login_required  
-def gallery_detail(request, gallery_id):
+def collection_detail(request, gallery_id):
     gallery = get_object_or_404(ArtCollection, id=gallery_id)
 
     if request.method == 'POST':
@@ -136,7 +136,7 @@ def gallery_detail(request, gallery_id):
         if artwork.user == request.user and artwork in gallery.artworks.all():
             gallery.artworks.remove(artwork)
 
-            return redirect('gallery_detail', gallery_id=gallery.id)
+            return redirect('collection_detail', gallery_id=gallery.id)
 
     return render(request, 'artwork/gallery_detail.html', {'gallery': gallery})
 
@@ -147,24 +147,24 @@ def remove_artwork_from_gallery(request, gallery_id, artwork_id):
     artwork = get_object_or_404(Artwork, id=artwork_id)
 
     if gallery.user != request.user:
-        return redirect('gallery_list') 
+        return redirect('collection_list') 
 
     gallery.artworks.remove(artwork)
     
     messages.success(request, 'L\'œuvre d\'art a été retirée de la galerie avec succès.')
 
-    return redirect('gallery_detail', gallery_id=gallery.id) 
+    return redirect('collection_detail', gallery_id=gallery.id) 
 
 @login_required  
-def gallery_delete(request, gallery_id):
+def collection_delete(request, gallery_id):
     gallery = get_object_or_404(ArtCollection, id=gallery_id)
 
     if gallery.user != request.user:
-        return redirect('gallery_list') 
+        return redirect('collection_list') 
 
     if request.method == 'POST':
         gallery.delete()
         messages.success(request, 'La galerie a été supprimée avec succès.')  
-        return redirect('gallery_list')  
+        return redirect('collection_list')  
 
     return render(request, 'artwork/gallery_confirm_delete.html', {'gallery': gallery})

@@ -132,10 +132,9 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">{{ gallery.name }}</h5>
-                            <p class="card-text">Description : {{ gallery.description }}</p>
-                            <p class="card-text">Artworks : {{ gallery.artworks.count }}</p>
+                            <p class="card-text">Artworks Number : {{ gallery.artworks.count }}</p>
                             <div class="button-container">
-                                <a href="{% url 'gallery_detail' gallery.id %}">See Collection</a>
+                                <a href="{% url 'collection_detail' gallery.id %}">See Collection</a>
                                 <button class="btn delete-button" data-toggle="modal" data-target="#deleteModal{{ gallery.id }}">
                                     <i class="fas fa-trash-alt"></i> Delete
                                 </button>
@@ -156,7 +155,7 @@
                                     Êtes-vous sûr de vouloir supprimer la galerie "{{ gallery.name }}" ?
                                 </div>
                                 <div class="modal-footer">
-                                    <form method="POST" action="{% url 'gallery_delete' gallery.id %}">
+                                    <form method="POST" action="{% url 'collection_delete' gallery.id %}">
                                         {% csrf_token %}
                                         <button type="submit" class="btn btn-danger">Supprimer</button>
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
